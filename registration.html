@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css" />
+    <link rel="stylesheet" href="helpers.css" />
+
+    <!--bulma extensions -->
+    <script src="/node_modules/bulma-extensions/bulma-calendar/dist/js/bulma-calendar.min.js"></script>
+    <link rel="stylesheet" href="/node_modules/bulma-extensions/bulma-calendar/dist/css/bulma-calendar.sass">
+    <link rel="stylesheet" href="/node_modules/bulma-extensions/bulma-slider/dist/css/bulma-slider.min.css">
+    <script src="/node_modules/bulma-extensions/bulma-slider/dist/js/bulma-slider.min.js"></script>
+</head>
+<body>
+    <div class="card">
+        <div class="card-content login">
+            <p class="title">
+                New user
+            </p>
+            <p class="subtitle">
+                Sign up to continue.
+            </p>
+            <div class="field">
+                <label class="label">Full name</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="first name and/or last name">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Salutation</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="what you prefer to be addressed">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                    <input class="input" type="email" placeholder="Email address">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="username">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="My password">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Re-password</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="My password">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content login">
+            <input type="checkbox" name="salt-user" value="salt-user" id="salt-user" onchange="saltUser()"> SALT user?<br>
+            <div id="salt-form"></div>
+            <input type="checkbox" name="lesedi-user" value="lesedi-user" id="lesedi-user" onchange="lesediUser()" > Lesedi user?<br>
+            <div id="lesedi-form"></div>
+            <input type="checkbox" name="other-user" value="other-user" onchange="otherUser()" id="other-user"> other user?<br>
+            <div id="other-form"></div>
+        </div>
+    </div>
+</body>
+<script>
+
+    const saltUser = () => {
+    	const form = document.getElementById('salt-form');
+		const user = document.getElementById('salt-user');
+		user.checked ?
+        form.innerHTML = `
+    <div class="card-content login">
+        <h6 class="subtitle is-6 has-text-centered">web manager login</h6>
+        <div class="field">
+            <label class="label">Username</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Username">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+                <input class="input" type="email" placeholder="My password">
+            </div>
+        </div>
+    </div>
+        ` : form.innerHTML = '';
+    };
+	const lesediUser = () => {
+		const form = document.getElementById('lesedi-form');
+		const user = document.getElementById('lesedi-user');
+		user.checked ?
+		form.innerHTML = `
+    <div class="card-content login">
+        <h6 class="subtitle is-6 has-text-centered">lesedi login</h6>
+        <div class="field">
+            <label class="label">Username</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Username">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+                <input class="input" type="email" placeholder="My password">
+            </div>
+        </div>
+    </div>
+    ` : form.innerHTML = ''
+	};
+	const otherUser = () => {
+        const form = document.getElementById('other-form');
+        const user = document.getElementById('other-user');
+        user.checked ?
+        form.innerHTML = `
+    <div class="card-content login">
+        <h6 class="subtitle is-6 has-text-centered">other login</h6>
+        <div class="field">
+            <label class="label">Username</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Username">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+                <input class="input" type="email" placeholder="My password">
+            </div>
+        </div>
+    </div>
+    ` : form.innerHTML = ''
+	};
+
+</script>
+</html>

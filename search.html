@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css" />
+    <link rel="stylesheet" href="helpers.css" />
+
+    <!--bulma extensions -->
+    <script src="/node_modules/bulma-extensions/bulma-calendar/dist/js/bulma-calendar.min.js"></script>
+    <link rel="stylesheet" href="/node_modules/bulma-extensions/bulma-calendar/dist/css/bulma-calendar.sass">
+    <link rel="stylesheet" href="/node_modules/bulma-extensions/bulma-slider/dist/css/bulma-slider.min.css">
+    <script src="/node_modules/bulma-extensions/bulma-slider/dist/js/bulma-slider.min.js"></script>
+
+</head>
+<body>
+
+<!-- The Modal -->
+<div id="imgModal" class="img-modal">
+    <span class="img-close">&times;</span>
+    <img class="img-modal-content" id="img01" src="">
+    <div id="caption"></div>
+</div>
+
+<div class="modal" id="modal">
+    <div class="modal-background"></div>
+    <div class="columns is-multiline">
+        <div class="cart-content column is-12">
+            <!-- Any other Bulma elements you want -->
+            <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+                <tbody id="table-cart"></tbody>
+            </table>
+        </div>
+        <div class="column"></div>
+        <div class="column is-12">
+            <div class=" columns ">
+                <button class="button is-info notification column is-2 is-offset-2" >
+                    <span class="icon is-small is-left"><i class="fas fa-download"></i></span>
+                    <span class="'tag'">request all in cart</span>
+                </button>
+                <button class="button is-warning notification column is-2 is-offset-1" >
+                    <span class="icon is-small is-left"><i class="fas fa-eraser"></i></span>
+                    <span class="'tag'">clear cart</span>
+                </button>
+                <button class="button is-danger notification column is-2 is-offset-1"  onclick="closeCart()">
+                    <span class="icon is-small is-left"><i class="fas fa-eraser"></i></span>
+                    <span class="'tag'">close cart</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button class="modal-close" onclick="closeCart()"></button>
+</div>
+<nav class="navbar is-transparent">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="">
+            Data Archive
+        </a>
+
+    </div>
+
+    <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="">
+                Home
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link" href="">
+                    Docs
+                </a>
+                <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="">
+                        Overview
+                    </a>
+                    <a class="navbar-item" href="">
+                        Usage
+                    </a>
+                    <a class="navbar-item" href="">
+                        About
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item notification is-danger">
+                <span class="'tag'"><i class="fas fa-sign-out-alt"></i></span> <span class="'tag'">logout</span>
+            </div>
+        </div>
+    </div>
+</nav>
+<section class="hero">
+    <div class="tile is-vertical">
+        <div class="tile is-parent">
+            <div class="tile is-child notification is-primary columns">
+                <div class="column is-one-quarter">
+                    <div class="columns is-mobile is-multiline">
+                        <div class="field column is-12">
+                            <label class="label">Target name</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">RA</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">DEC</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">Radius</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="field column is-half is-narrow">
+                            <label class="label">Radius units</label>
+                            <div class="select">
+                                <select title="Radius units">
+                                    <option>degrees</option>
+                                    <option>arc seconds</option>
+                                    <option>arc minutes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-one-quarter">
+                    <div class="columns is-mobile is-multiline">
+                        <div class="field column is-12">
+                            <label class="label">Date</label>
+                            <div class="control">
+                                <input class="input" type="date" title="">
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">start time</label>
+                            <div class="control">
+                                <input class="input" type="time" placeholder="">
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">End time</label>
+                            <div class="control">
+                                <input class="input" type="time" placeholder="">
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">Data type</label>
+                            <div class="select">
+                                <select title="">
+                                    <option>any</option>
+                                    <option>raw</option>
+                                    <option>reduced</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-one-quarter">
+                    <div class="columns is-mobile is-multiline">
+                        <div class="field column is-12">
+                            <label class="label">Principal investigator</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">Proposal code</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">Filename</label>
+                            <div class="control">
+                                <input class="input" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">telescope</label>
+                            <div class="select">
+                                <select onchange="telescopeChange()" id="telescope"  title="">
+                                    <option>any</option>
+                                    <option>SALT</option>
+                                    <option>1.9 inch</option>
+                                    <option>Lesedi</option>
+                                    <option>1m</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field column is-half">
+                            <label class="label">Category</label>
+                            <div class="select">
+                                <select  title="">
+                                    <option>science</option>
+                                    <option>engineering</option>
+                                    <option>any</option>
+                                    <optgroup label="calibrations">
+                                    <option value="volvo">Arc</option>
+                                    <option value="saab">flats</option>
+                                    <option value="saab">acquisition image</option>
+                                </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="column is-one-quarter" id="instruments"></div>
+
+
+            </div>
+            <div class="is-child notification is-primary relative">
+                <button class="button is-info" onclick="showCart()" id="cart-btn">
+                    <span class="'tag'"><i class="fas fa-shopping-cart"></i></span> <span class="'tag'">cart</span>
+                </button>
+                <button class="button is-info search-btn" onclick="searchData()" id="search-btn"><span class="icon is-small is-left">
+                    <i class="fas fa-search"></i>
+                </span>
+                    <span class="'tag'">search</span>
+                </button>
+                <div id="cancel-search"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tile">
+        <div class="tile is-parent is-3">
+            <article class="tile is-child notification is-info">
+                <div class="columns">
+                    <div class="field column is-half">
+                        <label class="label">Radius</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="">
+                        </div>
+                    </div>
+                    <div class="field column is-half is-narrow">
+                        <label class="label">Radius units</label>
+                        <div class="select">
+                            <select title="Radius units">
+                                <option>degrees</option>
+                                <option>arc seconds</option>
+                                <option>arc minutes</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="columns">
+                    <div class="field column is-half is-narrow">
+                        <label class="label">Data type</label>
+                        <div class="select">
+                            <select title="">
+                                <option>any</option>
+                                <option>raw</option>
+                                <option>reduced</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field column is-half">
+                        <label class="label">Category</label>
+                        <div class="select">
+                            <select  title="">
+                                <option>science</option>
+                                <option>engineering</option>
+                                <option>any</option>
+                                <optgroup label="calibrations">
+                                    <option value="volvo">Arc</option>
+                                    <option value="saab">flats</option>
+                                    <option value="saab">acquisition image</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <p class="title">Filters</p>
+                    <p class="subtitle">Still need to be decided</p>
+                    <div class="content">
+                        <!-- Content -->
+                    </div>
+                </div>
+            </article>
+        </div>
+
+
+        <div class="tile container-1">
+            <div class="tile">
+                <div class="container-1 notification" style="overflow-y: auto;">
+                    <table class="table  is-fullwidth is-striped ">
+                        <tbody id="table-1"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+
+</section>
+</body>
+
+<script type="text/javascript">
+	const telescope = document.getElementById('telescope');
+	const tableBody = document.getElementById('table-1');
+	const searchBtn = document.getElementById('search-btn');
+	const cancelBtn = document.getElementById('cancel-search');
+
+	function sleep(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
+	function getRandomInt(max) {
+		return Math.floor(Math.random() * Math.floor(max));
+	}
+	const telescopeChange = () => {
+		const parentDiv = document.getElementById('instruments');
+        switch (telescope.value) {
+            case 'SALT':
+            	console.log('this is about salt');
+            	parentDiv.innerHTML = `
+            	<div class="columns is-mobile is-multiline">
+                        <div class="field column is-12 ">
+                        <labe>Instruments</labe>
+                            <div class="select">
+                                <select onchange="saltInstrumentsChange()" id="salt-instrument">
+                                    <option>any</option>
+                                    <option>HRS</option>
+                                    <option>RSS</option>
+                                    <option>BVIT</option>
+                                    <option>SCAM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field column is-half " id='salt-filters'></div>
+                        <div class="field column is-half " id='salt-filters2'></div>
+                    </div>
+
+            	`;
+            	break;
+			case '1.9 inch':
+				console.log('this is about 1.9 inch');
+				parentDiv.innerHTML = `
+            	<div class="columns is-multiline notification is-warning">
+                        <div class="column is-12">
+                            <p class="title">1.9 inch is selected </p>
+                        </div>
+                        <div class="column is-12">
+                            <p class="title"></p>
+                            <p class="title">instruments</p>
+                            <p class="title"></p>
+                        </div>
+                        <div class="column is-12">
+                            <p class="title">must come here!</p>
+                        </div>
+                    </div>
+                    `;
+				break;
+			case 'Lesedi':
+				console.log('this is about Lesedi');
+				parentDiv.innerHTML = `
+            	<div class="columns is-multiline notification is-warning">
+                        <div class="column is-12">
+                            <p class="title">Lesedi is selected </p>
+                        </div>
+                        <div class="column is-12">
+                            <p class="title"></p>
+                            <p class="title">instruments</p>
+                            <p class="title"></p>
+                        </div>
+                        <div class="column is-12">
+                            <p class="title">must come here!</p>
+                        </div>
+                    </div>
+
+            	`;
+				break;
+			case '1m':
+				console.log('this is about 1 m');
+				parentDiv.innerHTML = `
+            	<div class="columns is-multiline notification is-warning">
+                        <div class="column is-12">
+                            <p class="title">1 meter is selected </p>
+                        </div>
+                        <div class="column is-12">
+                            <p class="title"></p>
+                            <p class="title">instruments</p>
+                            <p class="title"></p>
+                        </div>
+                        <div class="column is-12">
+                            <p class="title">must come here!</p>
+                        </div>
+                    </div>
+
+            	`;
+				break;
+			case 'any':
+				console.log('this is about 1 m');
+				parentDiv.innerHTML = '';
+				break;
+            default:
+            	console.log('Any other telescope');
+				parentDiv.innerHTML = `
+            	<div class="columns is-multiline notification is-warning">
+                        <div class="column is-12">
+                            <p class="title">instruments of selected </p>
+                        </div>
+                        <div class="column is-12">
+                            <p class="title"></p>
+                            <p class="title">telescope</p>
+                            <p class="title"></p>
+                        </div>
+                        <div class="column is-12">
+                            <p class="title">must come here!</p>
+                        </div>
+                    </div>
+
+            	`;
+        }
+
+    };
+
+	async function waiting(id) {
+		const element = document.getElementById(id);
+		element.classList.add('is-loading');
+		await sleep(1000);
+		element.classList.remove('is-loading');
+	}
+
+	async function searchData() {
+
+		tableBody.innerHTML = '';
+		searchBtn.setAttribute('disabled', true);
+		searchBtn.classList.add('is-loading');
+		await sleep(1000);
+
+		cancelBtn.innerHTML = `
+		    <button class="button is-danger cancel-btn" onclick="searchData()" id="search-btn">
+		        <span class="icon is-small is-left">
+                    <i class="fas fa-cancel"></i>
+                </span>
+                <span class="'tag'">cancel</span>
+            </button>
+		`;
+		await sleep(2000);
+		const data = getData();
+		const observations = data.reduce((a, b) => {
+			if (!a[b.observationId]){
+				a[b.observationId] = {
+					id: b.observationId,
+					name: b.observationName,
+					proposalCode: b.proposalCode,
+					targetName: b.targetName,
+					abstract: b.abstract,
+					ra: b.ra,
+					dec: b.dec,
+					obsTime: b.obsTime,
+					category: b.category,
+					telescope: b.telescope,
+					instruments: b.instruments,
+					files: []
+				}
+			}
+			a[b.observationId].files.push(b.filename);
+			return a
+		},{});
+
+		Object.keys(observations).forEach(obs => {
+
+			tableBody.innerHTML += `
+<tr class="is-selected">
+    <td colspan="4">${observations[obs].name} (${observations[obs].proposalCode})</td>
+    <td colspan="4">
+        <div class="button is-info"><span class="'tag'"><i class="fas fa-info-circle"></i> details</span></div>
+    </td>
+    <td colspan="2"><div class="button is-info" id="calibrations" onclick="waiting('calibrations')"><span class="'tag'"><i class="fas fa-plus"></i> calibrations</span></div></td>
+    <td>
+        <a class="button is-warning is-offset-1" >
+            <span class="icon is-small is-left"><i class="fas fa-plus"></i></span>
+            <span class="'tag'">add all</span>
+        </a>
+    </td>
+
+</tr>
+<tr>
+
+    <th><abbr title="Add obs to cart">Add</abbr></th>
+    <th>Filename</th>
+    <th>Data type</th>
+    <th>Target name</th>
+    <th><abbr title="Right ascension">RA</abbr></th>
+    <th><abbr title="Declination">DEC</abbr></th>
+    <th><abbr title="Time of observation">Obs Date</abbr></th>
+    <th>Category</th>
+    <th>Telescope</th>
+    <th>Instrument</th><th>Proposal code</th>
+
+
+</tr>
+`;
+			observations[obs].files.forEach(row => {
+				const imageNumber = getRandomInt(22);
+				const targetNumber = getRandomInt(10000);
+				tableBody.innerHTML += `
+<tr>
+    <td><input type="checkbox" ></td>
+    <td><a onclick="displayImage('space/image${imageNumber}.jpg')" name="space/image${imageNumber}.jpg">filename-${getRandomInt(100)}.${getRandomInt(2) === 1 ? 'fits': 'png'}</a></td>
+    <td>${getRandomInt(2) === 1 ? 'raw': 'reduced'}</td>
+    <td>target-name-${targetNumber}</td>
+    <td>${observations[obs].ra}</td>
+    <td>${observations[obs].dec}</td>
+    <td>${observations[obs].obsTime}</td>
+    <td>${observations[obs].category}</td>
+    <td>${observations[obs].telescope}</td>
+    <td>${observations[obs].instruments}</td>
+    <td>${observations[obs].proposalCode}</td>
+</tr>
+
+
+`
+			});
+		});
+	}
+	
+    const getData = () => {
+    	let data = [
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename56.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename33.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename31.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename34.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename121.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename12.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target2',
+				observationId: 'obs-id-2',
+				observationName: 'observation-2',
+				abstract: 'this information is associated with target 2',
+				ra: 100.006,
+				dec: 49.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename1.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target2',
+				observationId: 'obs-id-2',
+				observationName: 'observation-2',
+				abstract: 'this information is associated with target 2',
+				ra: 100.006,
+				dec: 49.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename11.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target2',
+				observationId: 'obs-id-2',
+				observationName: 'observation-2',
+				abstract: 'this information is associated with target 2',
+				ra: 100.006,
+				dec: 49.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename45.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-003',
+				targetName: 'Target3',
+				observationId: 'obs-id-3',
+				observationName: 'observation-3',
+				abstract: 'this information is associated with target 3',
+				ra: 90.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'SALT',
+				instruments: 'RSS',
+				filename: 'filename1.jpg'
+			},
+			{
+				proposalCode: '2018-2-SCA-003',
+				targetName: 'Target31',
+				observationId: 'obs-id-3',
+				observationName: 'observation-3',
+				abstract: 'this information is associated with target 31',
+				ra: 46.006,
+				dec: 92.093,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'HRS',
+				filename: 'filename17.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-003',
+				targetName: 'Target31',
+				observationId: 'obs-id-3',
+				observationName: 'observation-3',
+				abstract: 'this information is associated with target 31',
+				ra: 46.006,
+				dec: 92.093,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'HRS',
+				filename: 'filename12.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-003',
+				targetName: 'Target31',
+				observationId: 'obs-id-3',
+				observationName: 'observation-3',
+				abstract: 'this information is associated with target 31',
+				ra: 46.006,
+				dec: 92.093,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'HRS',
+				filename: 'filename71.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target1',
+				observationId: 'obs-id-1',
+				observationName: 'observation-1',
+				abstract: 'this information is associated with target 35',
+				ra: 94.006,
+				dec: 4.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'SCAM',
+				filename: 'filename4.jpg'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target1',
+				observationId: 'obs-id-1',
+				observationName: 'observation-1',
+				abstract: 'this information is associated with target 35',
+				ra: 94.006,
+				dec: 4.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'SCAM',
+				filename: 'filename4.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target1',
+				observationId: 'obs-id-1',
+				observationName: 'observation-1',
+				abstract: 'this information is associated with target 35',
+				ra: 94.006,
+				dec: 4.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'SCAM',
+				filename: 'filename23.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target1',
+				observationId: 'obs-id-1',
+				observationName: 'observation-1',
+				abstract: 'this information is associated with target 35',
+				ra: 94.006,
+				dec: 4.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'SCAM',
+				filename: 'filename45.csv'
+			},
+		];
+		searchBtn.removeAttribute('disabled');
+		searchBtn.classList.remove('is-loading');
+		cancelBtn.innerHTML = '';
+        if(telescope.value === 'SALT') {
+        	data = data.filter(d => {
+        		if (d.telescope === 'SALT') return d;
+        	})
+        }
+
+        return data
+
+    };
+
+    const saltInstrumentsChange = () => {
+		const instu = document.getElementById('salt-instrument');
+		const filters = document.getElementById('salt-filters');
+		const filters2 = document.getElementById('salt-filters2');
+        filters.innerHTML = '';
+        filters2.innerHTML = '';
+        switch (instu.value) {
+            case 'HRS':
+            	filters.innerHTML = `
+            	<labe>Detector mode</labe>
+            	<div class="select">
+            	    <select>
+                        <option>any</option>
+                        <option>HIGH RESOLUTION</option>
+                        <option>HIGH STABILITY</option>
+                        <option>INT CAL FIBRE</option>
+                        <option>LOW RESOLUTION</option>
+                        <option>MEDIUM RESOLUTION</option>
+                    </select>
+                </div>
+            	`;
+            	break;
+			case 'RSS':
+				filters.innerHTML = `
+            	<labe>Detector mode</labe>
+            	<div class="select">
+            	    <select >
+                        <option>any</option>
+                        <option>DRIFT SCAN</option>
+                        <option>FRAME TRANSFER</option>
+                        <option>NORMAL</option>
+                        <option>SHUFFLE</option>
+                        <option>SLOT MODE</option>
+                    </select>
+                </div>
+
+            	`;
+				filters2.innerHTML = `
+            	<labe>Observing Mode</labe>
+            	<div class="select">
+            	    <select>
+                        <option>any</option>
+                        <option>Fabry Perot (FP)</option>
+                        <option>FP polarimetry</option>
+                        <option>MOS</option>
+                        <option>MOS polarimetry</option>
+                        <option>Imaging</option>
+                        <option>Polarimetric imaging</option>
+                        <option>Spectroscopy</option>
+                        <option>Spectropolarimetry</option>
+                    </select>
+                </div>
+
+            	`;
+				break;
+        }
+    };
+
+    const showCart = () => {
+        const modal = document.getElementById('modal')
+        const cart = document.getElementById('table-cart')
+        modal.classList.add('is-active');
+
+		const data = [
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename56.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename33.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename31.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename34.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename121.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-030',
+				targetName: 'Target1',
+				observationId: 'obs-id-4',
+				observationName: 'observation-4',
+				abstract: 'this information is associated with target 1',
+				ra: 124.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename12.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target2',
+				observationId: 'obs-id-2',
+				observationName: 'observation-2',
+				abstract: 'this information is associated with target 2',
+				ra: 100.006,
+				dec: 49.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename1.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target2',
+				observationId: 'obs-id-2',
+				observationName: 'observation-2',
+				abstract: 'this information is associated with target 2',
+				ra: 100.006,
+				dec: 49.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename11.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target2',
+				observationId: 'obs-id-2',
+				observationName: 'observation-2',
+				abstract: 'this information is associated with target 2',
+				ra: 100.006,
+				dec: 49.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'Lesedi',
+				instruments: 'IDSAC',
+				filename: 'filename45.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-003',
+				targetName: 'Target3',
+				observationId: 'obs-id-3',
+				observationName: 'observation-3',
+				abstract: 'this information is associated with target 3',
+				ra: 90.006,
+				dec: 45.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'binary star',
+				telescope: 'SALT',
+				instruments: 'RSS',
+				filename: 'filename1.jpg'
+			},
+			{
+				proposalCode: '2018-2-SCA-003',
+				targetName: 'Target31',
+				observationId: 'obs-id-3',
+				observationName: 'observation-3',
+				abstract: 'this information is associated with target 31',
+				ra: 46.006,
+				dec: 92.093,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'HRS',
+				filename: 'filename17.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-003',
+				targetName: 'Target31',
+				observationId: 'obs-id-3',
+				observationName: 'observation-3',
+				abstract: 'this information is associated with target 31',
+				ra: 46.006,
+				dec: 92.093,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'HRS',
+				filename: 'filename12.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-003',
+				targetName: 'Target31',
+				observationId: 'obs-id-3',
+				observationName: 'observation-3',
+				abstract: 'this information is associated with target 31',
+				ra: 46.006,
+				dec: 92.093,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'HRS',
+				filename: 'filename71.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target1',
+				observationId: 'obs-id-1',
+				observationName: 'observation-1',
+				abstract: 'this information is associated with target 35',
+				ra: 94.006,
+				dec: 4.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'SCAM',
+				filename: 'filename4.jpg'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target1',
+				observationId: 'obs-id-1',
+				observationName: 'observation-1',
+				abstract: 'this information is associated with target 35',
+				ra: 94.006,
+				dec: 4.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'SCAM',
+				filename: 'filename4.fit'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target1',
+				observationId: 'obs-id-1',
+				observationName: 'observation-1',
+				abstract: 'this information is associated with target 35',
+				ra: 94.006,
+				dec: 4.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'SCAM',
+				filename: 'filename23.png'
+			},
+			{
+				proposalCode: '2018-2-SCA-001',
+				targetName: 'Target1',
+				observationId: 'obs-id-1',
+				observationName: 'observation-1',
+				abstract: 'this information is associated with target 35',
+				ra: 94.006,
+				dec: 4.023,
+				obsTime: '2017-01-02 03:55:23',
+				category: 'galaxy',
+				telescope: 'SALT',
+				instruments: 'SCAM',
+				filename: 'filename45.csv'
+			},
+		];
+
+        const observations = data.reduce((a, b) => {
+        	if (!a[b.observationId]){
+        		a[b.observationId] = {
+        			id: b.observationId,
+                    name: b.observationName,
+					proposalCode: b.proposalCode,
+                    files: []
+                }
+            }
+			a[b.observationId].files.push(b);
+            return a
+        },{});
+
+		Object.keys(observations).forEach(obs => {
+
+        	cart.innerHTML += `
+
+<tr class="is-selected">
+    <td colspan="9">${observations[obs].name} (${observations[obs].proposalCode}) </td>
+    <td><div class="button is-danger"> <span class="'tag'"><i class="far fa-trash-alt"></i></span><span class="'tag'">remove observation</span></div></td>
+</tr>
+<tr>
+    <th></th>
+    <th>Filename</th>
+    <th>Size</th>
+    <th>Target name</th>
+    <th><abbr title="Right ascension">RA</abbr></th>
+    <th><abbr title="Declination">DEC</abbr></th>
+    <th><abbr title="Time of observation">Obs Time</abbr></th>
+    <th>Category</th>
+    <th>Telescope</th>
+    <th>Instrument</th>
+
+</tr>`;
+			observations[obs].files.forEach(row => {
+			    cart.innerHTML += `
+<tr>
+    <td>
+        <button class="button is-danger" id="delete-${row.filename}" onclick="waiting('delete-${row.filename}')">
+            <span class="'tag'">
+                <abbr title="remove file from cart">
+                    <i class="far fa-trash-alt"></i>
+                </abbr>
+                Delete
+            </span>
+        </button>
+
+    </td>
+    <td><a>${row.filename}</a></td>
+    <td>${getRandomInt(15)}Mb</td>
+    <td>${row.targetName}</td>
+    <td>${row.ra}</td>
+    <td>${row.dec}</td>
+    <td>${row.obsTime}</td>
+    <td>${row.category}</td>
+    <td>${row.telescope}</td>
+    <td>${row.instruments}</td>
+</tr>
+
+
+`
+			});
+		});
+    };
+    
+	const closeCart = () => {
+		const modal = document.getElementById('modal');
+		modal.classList.remove('is-active');
+	};
+
+	//============================IMAGE MODAL==============================================================
+
+	const imgmodal = document.getElementById('imgModal');
+	const displayImage = (image) => {
+		// Get the modal
+
+		console.log(imgmodal);
+		// Get the image and insert it inside the modal - use its "alt" text as a caption
+		const modalImg = document.getElementById("img01");
+		const captionText = document.getElementById("caption");
+		imgmodal.style.display = "block";
+
+		modalImg.src = image;
+		captionText.innerHTML = 'Fits headers will go below';
+    };
+
+	// Get the <span class='tag'> element that closes the modal
+	const span = document.getElementsByClassName("img-close")[0];
+
+	// When the user clicks on <span class='tag'> (x), close the modal
+	span.onclick = function() {
+		imgmodal.style.display = "none";
+	}
+
+	//============================IMAGE MODAL==============================================================
+</script>
+<style>
+    @import "node_modules/bulma-extensions/bulma-slider/dist/css/bulma-slider.min.css";
+    @import "node_modules/bulma-extensions/bulma-slider/dist/css/bulma-slider.sass";
+    @import "node_modules/bulma-extensions/bulma-calendar/dist/css/bulma-calendar.min.css";
+    @import "node_modules/bulma-extensions/bulma-calendar/dist/css/bulma-calendar.sass";
+
+</style>
+</html>
